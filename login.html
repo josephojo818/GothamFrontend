@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GothamBank</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="wrapper">
+        <form action="">
+            <h1>Login</h1>
+
+            <div class="input-box">
+                <input type="text" placeholder="Username" required>
+                <i class='bx bxs-user'></i>
+            </div>
+
+            <div class="input-box">
+                <input type="password" placeholder="Password" required>
+                <i class='bx bxs-lock-alt'></i>
+            </div>
+
+            <div class="remember-forgot">
+                <label><input type="checkbox"> Remember me</label>
+                <a href="#">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="btn">Login</button>
+
+            <div class="register-link">
+                <p>Don't have an account? <a href="sign-in.html">Register</a></p>
+            </div>
+        </form>
+    </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.querySelector("form");
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const inputs = form.querySelectorAll("input");
+    const username = inputs[0].value.trim();
+    const password = inputs[1].value.trim();
+
+    try {
+      const res = await fetch(`http://localhost:8080/auth/login?username=${username}&password=${password}`, {
+        method: "POST",
+      });
+
+      if (!res.ok) {
+        const msg = await res.text();
+        alert("Login failed: " + msg);
+        return;
+      }
+
+      const data = await res.json();
+      // expected backend response example:
+      // { "token": "jwt-here", "username": "siddharth", "userId": "abc123" }
+
+      localStorage.setItem("jwt", data.token);
+      localStorage.setItem("username", data.username);
+      localStorage.setItem("userId", data.userId);
+
+      alert("Login successful!");
+      window.location.href = "dashboard.html";
+    } catch (err) {
+      alert("Error: " + err.message);
+    }
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="deposit.css">
+    <title>GothamBank</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="tab">
+            <form id="withdrawForm">
+                <h1>withdraw</h1>
+
+                <label for="amount">Enter your amount</label>
+                <input type="number" required placeholder="Amount" id="amount">
+
+                <label>Enter PIN</label>
+                <div class="pin-wrapper">
+                    <input type="password" maxlength="1" class="pin-input">
+                    <input type="password" maxlength="1" class="pin-input">
+                    <input type="password" maxlength="1" class="pin-input">
+                    <input type="password" maxlength="1" class="pin-input">
+                </div>
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    // Auto-jump PIN input boxes
+    const pinInputs = document.querySelectorAll(".pin-input");
+
+    pinInputs.forEach((input, index) => {
+        input.addEventListener("input", () => {
+            if (input.value.length === 1 && index < 3) {
+                pinInputs[index + 1].focus();
+            }
+        });
+
+        input.addEventListener("keydown", (e) => {
+            if (e.key === "Backspace" && index > 0 && !input.value) {
+                pinInputs[index - 1].focus();
+            }
+        });
+    });
+
+
+    // Deposit submit handler
+    const form = document.getElementById("withdrawForm");
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const amount = document.getElementById("amount").value.trim();
+
+        // Combine PIN digits
+        let pin = "";
+        pinInputs.forEach(i => pin += i.value);
+
+        if (pin.length !== 4) {
+            alert("Please enter a 4-digit PIN");
+            return;
+        }
+
+        const userId = localStorage.getItem("userId");
+
+        try {
+            const res = await fetch(`http://localhost:8080/public/transaction/withdraw/${userId}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    amount: Number(amount),
+                    pin: pin
+                })
+            });
+
+            if (res.ok) {
+                alert("withdraw successful!");
+                window.location.href = "dashboard.html";
+            } else {
+                alert("withdraw failed.");
+            }
+        } catch (err) {
+            alert("Error: " + err.message);
+        }
+    });
+});
+</script>
+
+</body>
+</html>

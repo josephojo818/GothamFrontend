@@ -1,0 +1,148 @@
+body {
+  height: 100vh; /* full screen */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('dashboard-background.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family: Arial, sans-serif;
+  margin: 0;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tab {
+  width: 400px;
+  height: 400px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  color: #fff;
+  border-radius: 16px;
+  padding: 30px 40px;
+  display: flex;
+  flex-direction: column; /* stack elements vertically */
+  justify-content: space-between; /* push top and bottom apart */
+  text-align: center;
+  position: relative;
+}
+
+.tab h2 {
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-align: center; /* centers horizontally */
+  margin: 0;
+  margin-top: 10px;
+}
+
+/* grid for icons */
+.icons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 per row */
+  grid-template-rows: repeat(3, auto);   /* 3 rows total */
+  gap: 35px;                             /* equal space between icons */
+  justify-items: center;
+  align-items: center;
+  padding: 20px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* icon style */
+.material-symbols-outlined {
+  position: relative; /* for tooltip */
+  font-size: 45px;
+  color: #ddd;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.material-symbols-outlined:hover {
+  color: #eb8e15;
+  transform: scale(1.1);
+}
+
+/* tooltip style */
+.material-symbols-outlined::after {
+  content: attr(data-label);
+  position: absolute;
+  bottom: -25px; /* tooltip below the icon */
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  font-size: 12px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  opacity: 0;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+/* show tooltip on hover */
+.material-symbols-outlined:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-3px);
+}
+#passbookToggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: #ffffffcc;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    z-index: 2000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+/* Passbook Sliding Panel */
+#passbookPanel {
+    position: fixed;
+    top: 0;
+    left: -350px; /* hidden */
+    width: 300px;
+    height: 100%;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(8px);
+    border-right: 2px solid rgba(255,255,255,0.3);
+    transition: left 0.3s ease;
+    padding: 20px;
+    z-index: 1500;
+    overflow-y: auto;
+}
+
+#passbookPanel h2 {
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.transaction {
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.15);
+    display: flex;
+    justify-content: space-between;
+    color: #fff;
+    font-size: 16px;
+}
+
+.transaction.deposit {
+    border-left: 5px solid #00ff88;
+}
+
+.transaction.withdraw {
+    border-left: 5px solid #ff4444;
+}
