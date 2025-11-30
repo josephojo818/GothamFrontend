@@ -42,6 +42,7 @@
 </div>
 <script>
 document.addEventListener("DOMContentLoaded", async () => {
+    const BASE_URL = "https://gothambackend-3.onrender.com";
     const usernameElem = document.getElementById("username");
     const balanceElem = document.getElementById("balance");
 
@@ -58,7 +59,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     usernameElem.textContent = username;
 
     try {
-      const res = await fetch(`http://localhost:8080/public/balance/${userId}`, {
+      const res = await fetch(`${BASE_URL}/public/balance/${userId}`, {
         method: "GET",
         headers: {
           "Authorization": `Bearer ${token}`,
@@ -111,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!userId) return;
 
         try {
-            const res = await fetch(`http://localhost:8080/public/transaction/user/${userId}`);
+            const res = await fetch(`${BASE_URL}/public/transaction/user/${userId}`);
             const data = await res.json();
 
             transactionList.innerHTML = "";

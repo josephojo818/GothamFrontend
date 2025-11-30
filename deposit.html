@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Auto-jump PIN input boxes
     const pinInputs = document.querySelectorAll(".pin-input");
+    const BASE_URL = "https://gothambackend-3.onrender.com";
 
     pinInputs.forEach((input, index) => {
         input.addEventListener("input", () => {
@@ -69,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const userId = localStorage.getItem("userId");
 
         try {
-            const res = await fetch(`http://localhost:8080/public/transaction/deposit/${userId}`, {
+            const res = await fetch(`${BASE_URL}/transaction/deposit/${userId}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

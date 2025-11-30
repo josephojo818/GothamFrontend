@@ -38,6 +38,7 @@
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector("form");
+  const BASE_URL = "https://gothambackend-3.onrender.com";
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -47,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const password = inputs[1].value.trim();
 
     try {
-      const res = await fetch(`http://localhost:8080/auth/login?username=${username}&password=${password}`, {
+      const res = await fetch(`${BASE_URL}/auth/login?username=${username}&password=${password}`, {
         method: "POST",
       });
 
