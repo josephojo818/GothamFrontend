@@ -146,3 +146,29 @@ body {
 .transaction.withdraw {
     border-left: 5px solid #ff4444;
 }
+.account-btn {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(255, 255, 255, 0.85); /* whiter */
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: #333;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+}
+
+.account-btn span {
+    font-size: 25px;
+    color: #333;
+}
+
+.account-btn:hover {
+    background: rgba(255, 255, 255, 1);
+}
